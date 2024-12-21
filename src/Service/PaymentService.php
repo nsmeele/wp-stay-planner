@@ -2,6 +2,6 @@
 
 namespace Nsmeele\WpStayPlanner\Service;
 
-class PriceService
+class PaymentService
 {
 }

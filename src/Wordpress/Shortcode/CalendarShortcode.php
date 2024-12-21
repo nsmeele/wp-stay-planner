@@ -13,10 +13,8 @@ class CalendarShortcode extends BaseShortcode
 
     public function render(array $atts): string
     {
-        $year = date('Y');
-
         $calendarService = new CalendarService();
-        $schema          = $calendarService->renderYear();
+        $schema          = $calendarService->makeCalendar();
 
         return '<h1>Calendar</h1>' . $schema;
     }

@@ -2,8 +2,6 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\Page;
 
-use Nsmeele\WpStayPlanner\Wordpress\PostType\BasePostType;
-
 class DashboardPage extends BasePage
 {
     public function register(): void
@@ -28,7 +26,7 @@ class DashboardPage extends BasePage
 
     protected function render(): void
     {
-        echo 'Hello world';
+        echo 'Hello world!';
         echo do_shortcode('[calendar]');
     }
 }

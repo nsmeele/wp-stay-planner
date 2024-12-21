@@ -1,8 +1,11 @@
 <?php
 
-namespace Nsmeele\WpStayPlanner\Wordpress\FieldType;
+namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-class ReferenceField extends BaseField
+use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
+use Nsmeele\WpStayPlanner\Component\Form\ElementFactory;
+
+class ReferenceField extends AbstractElement
 {
     public function __construct(string $name, array $args = array ())
     {
@@ -34,13 +37,13 @@ class ReferenceField extends BaseField
             ];
         }
 
-        $html = FieldFactory::create('select', $this->name, [
+        $html = ElementFactory::create('select', $this->name, [
             'options'           => $options,
             'widget_attributes' => $selectWidgetAttributes
         ])->getWidgetHtml();
 
         if ($this->args[ 'referenceArgs' ][ 'cardinality' ] > 1) {
-            $html .= FieldFactory::create('text', null, [
+            $html .= ElementFactory::create('text', null, [
                 'label' => $this->args[ 'label' ],
             ])->getWidgetHtml();
         }

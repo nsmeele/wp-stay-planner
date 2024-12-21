@@ -4,27 +4,24 @@ namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
 class OfferPostType extends BasePostType
 {
-    protected function getTag(): string
+    public function getTag(): string
     {
         return 'offer';
     }
 
-    public function registerPostType(): void
+    protected function getPostTypeProperties(): array
     {
-        register_post_type(
-            $this->getTag(),
-            array_merge(
-                $this->getDefaultProperties(),
-                [
-                    'labels' => [
-                        'name' => __('Aanbiedingen', 'textdomain'),
-                        'singular_name' => __('Aanbieding', 'textdomain'),
-                        'add_new' => 'Maak nieuwe aanbieding',
-                        'add_new_item' => 'Nieuwe aanbieding',
-                        'edit_item' => 'Wijzig aanbieding'
-                    ],
-                ]
-            )
+        return array_merge(
+            parent::getPostTypeProperties(),
+            [
+                'labels' => [
+                    'name' => __('Aanbiedingen', 'textdomain'),
+                    'singular_name' => __('Aanbieding', 'textdomain'),
+                    'add_new' => 'Maak nieuwe aanbieding',
+                    'add_new_item' => 'Nieuwe aanbieding',
+                    'edit_item' => 'Wijzig aanbieding'
+                ],
+            ]
         );
     }
 }

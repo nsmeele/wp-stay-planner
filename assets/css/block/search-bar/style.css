@@ -1,0 +1,32 @@
+.wp-stay-planner-component *,
+.wp-stay-planner-component *::before,
+.wp-stay-planner-component *::after {
+    box-sizing: border-box;
+}
+
+.wp-stay-planner-component {
+    width: 100%;
+}
+
+.wp-stay-planner-component.search-bar form {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+}
+
+.wp-stay-planner-component.search-bar form .form__element {
+    width: 100%;
+}
+
+.wp-stay-planner-component.search-bar form .form__element + .form__element {
+    padding-left: 10px;
+}
+
+.wp-stay-planner-component.search-bar form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}

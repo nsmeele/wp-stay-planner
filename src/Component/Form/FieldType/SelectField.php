@@ -1,8 +1,10 @@
 <?php
 
-namespace Nsmeele\WpStayPlanner\Wordpress\FieldType;
+namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-class SelectField extends BaseField
+use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
+
+class SelectField extends AbstractElement
 {
     public function __construct(string $name, array $args = array ())
     {

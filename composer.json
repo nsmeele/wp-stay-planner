@@ -1,5 +1,6 @@
 {
     "name": "nsmeele/wp-stay-planner",
+    "homepage": "https://github.com/nsmeele/wp-stay-planner",
     "description": "Manage your cottage reservations",
     "type": "project",
     "autoload": {

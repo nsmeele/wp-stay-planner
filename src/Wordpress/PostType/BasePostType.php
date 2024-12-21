@@ -2,22 +2,51 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
-use Nsmeele\WpStayPlanner\Wordpress\FieldType\FieldInterface;
+use Nsmeele\WpStayPlanner\Component\Form\ElementInterface;
 
 abstract class BasePostType implements PostTypeInterface
 {
+    protected \WP_Post_Type $postType;
+
+    abstract public function getTag(): string;
+
     public function init(): void
     {
         add_action('init', [$this, 'register']);
         add_action('add_meta_boxes', [$this, 'registerMetabox']);
         add_action('save_post', [$this, 'saveMetaboxData']);
+        add_filter('parent_file', [$this, 'adminMenuSelected']);
     }
 
-    abstract public function registerPostType(): void;
+    final public function adminMenuSelected(string $parentFile): string
+    {
+        global $current_screen;
 
-    abstract protected function getTag(): string;
+        if ($current_screen->post_type === $this->getTag()) {
+            return 'stay-planner';
+        }
 
-    final protected function getDefaultProperties(): array
+        return $parentFile;
+    }
+
+    final public function register(): void
+    {
+        $this->registerPostType();
+        $this->registerFields();
+    }
+
+    final public function registerPostType(): void
+    {
+        $postTypeObj = register_post_type(
+            $this->getTag(),
+            $this->getPostTypeProperties(),
+        );
+
+        $this->postType = $postTypeObj;
+    }
+
+
+    protected function getPostTypeProperties(): array
     {
         return [
             'public'       => false,
@@ -27,21 +56,9 @@ abstract class BasePostType implements PostTypeInterface
         ];
     }
 
-    final public function register(): void
-    {
-        $this->registerPostType();
-        $this->registerFields();
-    }
-
     final public function addToMenu($parentSlug = 'stay-planner'): void
     {
-        global $wp_post_types;
-
-        if (empty($wp_post_types[ $this->getTag() ])) {
-            return;
-        }
-
-        $postType = $wp_post_types[ $this->getTag() ];
+        $postType = $this->postType;
 
         add_submenu_page(
             $parentSlug,
@@ -53,7 +70,7 @@ abstract class BasePostType implements PostTypeInterface
     }
 
     /**
-     * @return FieldInterface[]
+     * @return ElementInterface[]
      */
     protected function getFields(): array
     {
@@ -65,7 +82,14 @@ abstract class BasePostType implements PostTypeInterface
         $fields = $this->getFields();
 
         foreach ($fields as $field) {
-            $field->register();
+            register_post_meta(
+                $this->getTag(),
+                $field->getName(),
+                array_merge(
+                    $field->getRegisterArgs(),
+                    ['object_subtype' => $this->getTag(),]
+                ),
+            );
         }
     }
 
@@ -91,8 +115,36 @@ abstract class BasePostType implements PostTypeInterface
         }
     }
 
-    public function saveMetaboxData(int $postId): void
+    public function saveMetaboxData(int $postId): int|null
     {
+        global $current_screen;
+
+        if ($current_screen->post_type !== $this->getTag()) {
+            return null;
+        }
+
+        if (! wp_verify_nonce($_POST[ $this->getTag() . '_metabox_nonce' ], basename(__FILE__))) {
+            throw new \Exception('Nonce verification failed');
+        }
+
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            throw new \Exception('Autosave');
+        }
+
+        if (! current_user_can('edit_post', $postId)) {
+            throw new \Exception('User cannot edit post');
+        }
+
+        foreach ($this->getFields() as $field) {
+            $value = $_POST[ $field->getName() ] ?? null;
+            if (! isset($value)) {
+                continue;
+            }
+
+            update_post_meta($postId, $field->getName(), $value);
+        }
+
+        return null;
     }
 
     public function renderMetabox($post): void
@@ -102,6 +154,11 @@ abstract class BasePostType implements PostTypeInterface
 
         $fields = static::getFields();
         foreach ($fields as $field) {
+            if (! empty($field->getName())) {
+                $currentValue = get_post_meta($post->ID, $field->getName(), $field->getRegisterArgs()['single'] ?? true);
+                $field->setValue($currentValue);
+            }
+
             echo $field;
         }
     }

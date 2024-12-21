@@ -1,10 +1,12 @@
 <?php
 
-namespace Nsmeele\WpStayPlanner\Wordpress\FieldType;
+namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-class EmailField extends BaseField
+use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
+
+class EmailField extends AbstractElement
 {
-    protected function getRegisterArgs(): array
+    public function getRegisterArgs(): array
     {
         return array_merge([
             parent::getRegisterArgs(),
