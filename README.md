@@ -12,7 +12,7 @@ WP Stay Planner is een WordPress-plugin ontworpen om het plannen en beheren van 
 
 ## Gebruik
 
-Na activatie is er een nieuw menu-item 'Stay Planner' beschikbaar in het WordPress-dashboard. Hier kun je verblijven toevoegen, bewerken en beheren.
+Na activatie is er een nieuw menu-item 'WP Stay Planner' beschikbaar in het WordPress-dashboard. Hier kun je verblijven toevoegen, bewerken en beheren
 
 ## Contributie
 
@@ -38,7 +38,7 @@ Bijdragen zijn welkom!
 
 ## Licentie
 
-Dit project is gelicentieerd onder de MIT-licentie.
+Dit project is gelicentieerd onder de Apache License, Version 2.0.
 
 ## Contact
 
