@@ -18,13 +18,13 @@ Na activatie is er een nieuw menu-item 'WP Stay Planner' beschikbaar in het Word
 
 Bijdragen zijn welkom!
 
-1. **Repository clonen**: Clone de repository:
-   ```bash
-   $ git clone https://github.com/nsmeele/wp-stay-planner.git
-   $ git checkout -b feature/nieuwe-feature
-   $ git commit -m "Voeg nieuwe feature toe"
-   $ git push origin feature/nieuwe-feature
-   ```
+1. Push je wijzigingen
+```bash
+$ git clone https://github.com/nsmeele/wp-stay-planner.git
+$ git checkout -b feature/nieuwe-feature
+$ git commit -m "Voeg nieuwe feature toe"
+$ git push origin feature/nieuwe-feature
+```
 2. **Pull request**: Open een pull request op GitHub en beschrijf je wijzigingen.
 
 ## Licentie
