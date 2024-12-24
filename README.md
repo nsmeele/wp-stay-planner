@@ -20,21 +20,12 @@ Bijdragen zijn welkom!
 
 1. **Repository clonen**: Clone de repository:
    ```bash
-   git clone https://github.com/nsmeele/wp-stay-planner.git
+   $ git clone https://github.com/nsmeele/wp-stay-planner.git
+   $ git checkout -b feature/nieuwe-feature
+   $ git commit -m "Voeg nieuwe feature toe"
+   $ git push origin feature/nieuwe-feature
    ```
-2. **Branch maken**: Maak een nieuwe branch voor je feature of bugfix:
-   ```bash
-   git checkout -b feature/nieuwe-feature
-   ```
-3. **Wijzigingen committen**: Commit je wijzigingen:
-   ```bash
-   git commit -m "Voeg nieuwe feature toe"
-   ```
-4. **Pushen**: Push de branch naar GitHub:
-   ```bash
-   git push origin feature/nieuwe-feature
-   ```
-5. **Pull request**: Open een pull request op GitHub en beschrijf je wijzigingen.
+2. **Pull request**: Open een pull request op GitHub en beschrijf je wijzigingen.
 
 ## Licentie
 
