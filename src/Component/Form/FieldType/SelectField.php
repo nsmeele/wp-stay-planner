@@ -17,12 +17,16 @@ class SelectField extends AbstractElement
 
         $args[ 'referenceArgs' ] = array_merge($defaultReferenceArgs, $args[ 'referenceArgs' ] ?? []);
 
+        if (isset($args['single']) && $args['single'] === false) {
+            $args['multiple'] = 'multiple';
+        }
+
         parent::__construct($name, $args);
     }
 
     protected function getWidgetHtml(): string
     {
-        $options      = '<option ' . $this->renderWidgetAttributes() . '>Selecteer...</option>';
+        $options      = '<option value="">Selecteer...</option>';
         $currentValue = $this->getValue();
 
         if (! empty($this->args[ 'options' ])) {
@@ -36,10 +40,9 @@ class SelectField extends AbstractElement
         }
 
         return sprintf(
-            "<select %s %s>%s</select>",
-            $this->renderWidgetAttributes(),
-            isset($this->args[ 'single' ]) && $this->args[ 'single' ] !== false ? 'multiple="multiple"' : '',
-            $options
+            "<select %s>%s</select>",
+            $this->renderAttributes($this->getWidgetAttributes()),
+            $options,
         );
     }
 }

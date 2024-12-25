@@ -2,7 +2,7 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
-class SeasonPostType extends BasePostType
+class SeasonPostType extends AbstractPostType
 {
     protected function getPostTypeProperties(): array
     {

@@ -6,6 +6,7 @@ class ElementFactory
 {
     const FIELD_TYPES = [
         'checkbox'  => FieldType\CheckboxField::class,
+        'radio'     => FieldType\RadioField::class,
         'date'      => FieldType\DateField::class,
         'email'     => FieldType\EmailField::class,
         'reference' => FieldType\ReferenceField::class,
@@ -15,6 +16,7 @@ class ElementFactory
         'number'    => FieldType\NumberField::class,
         'submit'    => FieldType\SubmitField::class,
         'button'    => FieldType\ButtonField::class,
+        'container' => FieldType\ContainerField::class,
     ];
 
     public static function create(
@@ -22,8 +24,8 @@ class ElementFactory
         ?string $name = null,
         array $args = array ()
     ): ElementInterface {
-        if (! array_key_exists($type, self::FIELD_TYPES)) {
-            throw new \InvalidArgumentException('Invalid field type');
+        if (self::validateType($type) === false) {
+            throw new \InvalidArgumentException('Invalid field type: ' . $type);
         }
 
         $fieldClass = self::FIELD_TYPES[ $type ];
@@ -60,5 +62,19 @@ class ElementFactory
             $fieldData[ 'name' ],
             ['label' => $fieldData[ 'label' ]]
         );
+    }
+
+    public static function getFieldType(string $class): string
+    {
+        if (in_array($class, self::FIELD_TYPES)) {
+            $fieldTypes = array_flip(self::FIELD_TYPES);
+            return $fieldTypes[ $class ];
+        }
+        throw new \InvalidArgumentException(sprintf("Invalid field class: [%s]", $class));
+    }
+
+    private static function validateType(string $type): bool
+    {
+        return array_key_exists($type, self::FIELD_TYPES);
     }
 }

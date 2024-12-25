@@ -2,7 +2,7 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
-class OfferPostType extends BasePostType
+class OfferPostType extends AbstractPostType
 {
     public function getTag(): string
     {

@@ -39,7 +39,7 @@ class ReferenceField extends AbstractElement
 
         $html = ElementFactory::create('select', $this->name, [
             'options'           => $options,
-            'widget_attributes' => $selectWidgetAttributes
+            'widget_attr' => $selectWidgetAttributes
         ])->getWidgetHtml();
 
         if ($this->args[ 'referenceArgs' ][ 'cardinality' ] > 1) {

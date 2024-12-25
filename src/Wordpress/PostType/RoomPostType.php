@@ -4,7 +4,7 @@ namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
 use Nsmeele\WpStayPlanner\Component\Form\ElementFactory;
 
-class RoomPostType extends BasePostType
+class RoomPostType extends AbstractPostType
 {
     protected function getPostTypeProperties(): array
     {

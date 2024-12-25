@@ -12,19 +12,16 @@ class ButtonField extends AbstractElement
         $this->setWidgetAttribute('type', 'button');
     }
 
-    public function __toString() : string
+    public function renderLabel(): string
     {
-        return sprintf(
-            '<div class="form__element">%s</div>',
-            $this->getWidgetHtml(),
-        );
+        return '';
     }
 
-    protected function getWidgetHtml() : string
+    protected function getWidgetHtml(): string
     {
         return sprintf(
             '<button %s>%s</button>',
-            $this->renderWidgetAttributes(),
+            $this->renderAttributes($this->getWidgetAttributes()),
             $this->getLabel(),
         );
     }

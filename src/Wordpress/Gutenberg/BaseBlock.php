@@ -68,6 +68,19 @@ abstract class BaseBlock
                 ],
             );
         }
+        if ($this->assetExists('/js/block/' . $this->getTag() . '.js')) {
+            wp_register_script(
+                $this->getTag() . '-editor',
+                $this->getAssetUrl('/js/block/' . $this->getTag() . '.js'),
+                [
+                    'wp-blocks',
+                    'wp-i18n',
+                    'wp-element',
+                    'wp-editor',
+                    'wp-components',
+                ],
+            );
+        }
 
         if ($this->assetExists('/css/block/' . $this->getTag() . '/editor-style.css')) {
             wp_register_style(
@@ -77,10 +90,18 @@ abstract class BaseBlock
             );
         }
 
+        if ($this->assetExists('/css/wp-stay-planner.css')) {
+            wp_register_style(
+                'wp-stay-planner-style',
+                $this->getAssetUrl('/css/wp-stay-planner.css'),
+            );
+        }
+
         if ($this->assetExists('/css/block/' . $this->getTag() . '/style.css')) {
             wp_register_style(
                 $this->getTag() . '-style',
                 $this->getAssetUrl('/css/block/' . $this->getTag() . '/style.css'),
+                ['wp-stay-planner-style'],
             );
         }
     }

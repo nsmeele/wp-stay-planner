@@ -28,5 +28,9 @@ interface ElementInterface
 
     public function getWidgetAttribute(string $attribute): ?string;
 
-    public function setWidgetAttribute(string $attribute, string $value): ElementInterface;
+    public function setWidgetAttribute(string $attribute, ?string $value = null): ElementInterface;
+
+    public function getId(): ?string;
+
+    public function setId(string $id): ElementInterface;
 }

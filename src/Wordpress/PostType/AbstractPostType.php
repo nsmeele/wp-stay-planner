@@ -4,7 +4,7 @@ namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
 use Nsmeele\WpStayPlanner\Component\Form\ElementInterface;
 
-abstract class BasePostType implements PostTypeInterface
+abstract class AbstractPostType implements PostTypeInterface
 {
     protected \WP_Post_Type $postType;
 

@@ -4,7 +4,7 @@ namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
 use Nsmeele\WpStayPlanner\Component\Form\ElementFactory;
 
-class BookingPostType extends BasePostType
+class BookingPostType extends AbstractPostType
 {
     public function getTag(): string
     {

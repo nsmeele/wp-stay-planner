@@ -2,7 +2,7 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
-class OutOfOfficePostType extends BasePostType
+class OutOfOfficePostType extends AbstractPostType
 {
     protected function getPostTypeProperties(): array
     {

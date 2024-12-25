@@ -2,15 +2,13 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
-
-class CheckboxField extends AbstractElement
+class CheckboxField extends InputField
 {
-    protected function getWidgetHtml(): string
-    {
-        return sprintf(
-            '<input type="checkbox" %s>',
-            $this->renderWidgetAttributes()
-        );
+    public function __construct(
+        ?string $name = null,
+        array $args = array (),
+    ) {
+        parent::__construct($name, $args);
+        $this->setWidgetAttribute('type', 'checkbox');
     }
 }

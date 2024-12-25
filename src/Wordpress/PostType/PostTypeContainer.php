@@ -32,7 +32,7 @@ class PostTypeContainer
     }
 
     /**
-     * @return BasePostType[]
+     * @return AbstractPostType[]
      */
     public function getPostTypes(): array
     {

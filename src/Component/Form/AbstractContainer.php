@@ -30,10 +30,18 @@ abstract class AbstractContainer extends AbstractElement implements ContainerInt
     public function getWidgetHtml(): string
     {
         $html = '';
+        $values = $this->getValues();
         foreach ($this->getFields() as $field) {
-            $field->setValue($this->values[ $field->getName() ] ?? null);
+            $field->setValue($values[ $field->getName() ] ?? null);
             $html .= $field->__toString();
         }
         return $html;
+    }
+
+    protected function getDefaultContainerAttr(): array
+    {
+        return [
+            'class' => 'element__container'
+        ];
     }
 }

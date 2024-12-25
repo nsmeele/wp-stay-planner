@@ -2,7 +2,7 @@
 
 namespace Nsmeele\WpStayPlanner\Wordpress\PostType;
 
-class CouponPostType extends BasePostType
+class CouponPostType extends AbstractPostType
 {
     public function getTag(): string
     {

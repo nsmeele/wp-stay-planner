@@ -14,6 +14,13 @@ class SearchBarBlock extends BaseBlock
         $content = '',
     ): string {
         $form = new \Nsmeele\WpStayPlanner\Form\SearchForm();
+        $form->setValues([
+            'start_date' => date('Y-m-d', strtotime('next saturday')),
+            'end_date'   => date('Y-m-d', strtotime('next sunday')),
+            'rooms'      => 1,
+            'adults'     => 2,
+            'children'   => 0,
+        ]);
 
         $containerClasses = $this->getComponentBlockContainerClasses();
         if (! empty($attributes[ 'align' ])) {

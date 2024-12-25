@@ -2,10 +2,16 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
-
-class EmailField extends AbstractElement
+class EmailField extends InputField
 {
+    public function __construct(
+        ?string $name = null,
+        array $args = array ()
+    ) {
+        parent::__construct($name, $args);
+        $this->setWidgetAttribute('type', 'email');
+    }
+
     public function getRegisterArgs(): array
     {
         return array_merge([
@@ -14,13 +20,5 @@ class EmailField extends AbstractElement
                 'sanitize_callback' => 'sanitize_email',
             ]
         ]);
-    }
-
-    protected function getWidgetHtml(): string
-    {
-        return sprintf(
-            '<input type="email" %s>',
-            $this->renderWidgetAttributes()
-        );
     }
 }

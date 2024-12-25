@@ -1,0 +1,49 @@
+.wp-stay-planner-component,
+.wp-stay-planner-component::before,
+.wp-stay-planner-component::after,
+.wp-stay-planner-component *,
+.wp-stay-planner-component *::before,
+.wp-stay-planner-component *::after {
+    box-sizing: border-box;
+}
+
+.wp-stay-planner-component {
+    width: 100%;
+}
+
+.wp-stay-planner-component button {
+    cursor: pointer;
+}
+
+.wp-stay-planner-component form .form__element input,
+.wp-stay-planner-component form .form__element button {
+    background: transparent;
+    border: none;
+    display: inline-block;
+    border: 2px solid var(--wp--preset--color--contrast);
+    border-radius: 5px;
+    outline: none;
+    padding: .5rem 1rem;
+    min-height: 38px;
+    color: inherit;
+}
+
+.wp-stay-planner-component form .form__element input:focus {
+    border-color: var(--wp--preset--color--accent-2);
+}
+
+.wp-stay-planner-component form .form__element button {
+    background: var(--wp--preset--color--accent-2);
+    border: 2px solid var(--wp--preset--color--accent-2);
+}
+
+.wp-stay-planner-component form .form__element--widget button:hover {
+    background: var(--wp--preset--color--accent-3);
+    border: 2px solid var(--wp--preset--color--accent-3);
+}
+
+.wp-stay-planner-component form .form__element--label {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
