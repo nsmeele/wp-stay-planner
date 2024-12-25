@@ -62,7 +62,7 @@ abstract class AbstractElement implements ElementInterface
         return $label;
     }
 
-    protected function renderHelpText() : string
+    protected function renderHelpText(): string
     {
         return sprintf(
             '<div class="form__element--help">%s</div>',
@@ -70,7 +70,7 @@ abstract class AbstractElement implements ElementInterface
         );
     }
 
-    protected function renderTooltip() : ?string
+    protected function renderTooltip(): ?string
     {
         if (! empty($this->args[ 'tooltip' ])) {
             return sprintf(

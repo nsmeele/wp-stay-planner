@@ -14,18 +14,43 @@ WP Stay Planner is een WordPress-plugin ontworpen om het plannen en beheren van 
 
 Na activatie is er een nieuw menu-item 'WP Stay Planner' beschikbaar in het WordPress-dashboard. Hier kun je verblijven toevoegen, bewerken en beheren
 
+## Gutenberg
+
+### Blocks
+De plugin bevat een aantal Gutenberg blocks die je kunt gebruiken om verblijven weer te geven op je website. De volgende blocks zijn beschikbaar:
+
+- Zoekbar: `wp-stay-planner/search-bar`
+
+### Templates
+De plugin bevat een aantal Gutenberg templates die je kunt gebruiken om verblijven weer te geven op je website. De volgende templates zijn beschikbaar:
+
+| Beschrijving | Uri           | Template name                    | Controller                               |
+|----------------|---------------|----------------------------------|------------------------------------------|
+| Zoekresultaten | /search-room  | `wp-stay-planner/search-results` | `\Wordpress\Controller\SearchController` |
+
+De uri's worden geregisteerd middels de add_rewrite_rule functie.
+
+## Post types
+
+De plugin voegt de volgende post types toe aan WordPress:
+
+- Reservering: `booking`
+- Coupon: `coupon`
+- Aanbieding: `offer`
+- Eigen afwezigheid (vakantie): `out-of-office`
+- Kamer: `room`
+- Seizoen: `season`
+
+## Installatievereisten
+
+- Wordpress: `^6.7`
+- PHP: `^8.2`
+
+De plugin zal niet werken op oudere versies van WordPress, en je krijgt een melding als je probeert deze te installeren of activeren op een niet-ondersteunde versie.
+
 ## Contributie
 
 Bijdragen zijn welkom!
-
-1. Push je wijzigingen
-```bash
-$ git clone https://github.com/nsmeele/wp-stay-planner.git
-$ git checkout -b feature/nieuwe-feature
-$ git commit -m "Voeg nieuwe feature toe"
-$ git push origin feature/nieuwe-feature
-```
-2. **Pull request**: Open een pull request op GitHub en beschrijf je wijzigingen.
 
 ## Licentie
 

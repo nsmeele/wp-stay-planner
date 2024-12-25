@@ -6,9 +6,9 @@ use Nsmeele\WpStayPlanner\Component\Form\AbstractForm;
 
 class SearchForm extends AbstractForm
 {
-    public function __construct(?string $name = null, array $args = array ())
+    public function __construct(array $args = array ())
     {
-        parent::__construct($name, $args);
+        parent::__construct($args);
         $this->setSubmitLabel(__('Search'));
     }
 
