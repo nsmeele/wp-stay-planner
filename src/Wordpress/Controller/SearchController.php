@@ -4,17 +4,17 @@ namespace Nsmeele\WpStayPlanner\Wordpress\Controller;
 
 class SearchController extends AbstractController
 {
-    protected function getUri() : string
+    protected function getUri(): string
     {
         return 'search-room';
     }
 
-    protected function getTemplate() : string
+    protected function getTemplate(): string
     {
         return 'search.php';
     }
 
-    protected function getBlockTemplateArguments() : array
+    protected function getBlockTemplateArguments(): array
     {
         return array_merge(
             parent::getBlockTemplateArguments(),
@@ -24,5 +24,4 @@ class SearchController extends AbstractController
             ]
         );
     }
-
 }
