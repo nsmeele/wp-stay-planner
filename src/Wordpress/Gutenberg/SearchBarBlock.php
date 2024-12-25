@@ -13,7 +13,10 @@ class SearchBarBlock extends BaseBlock
         $attributes = array (),
         $content = '',
     ): string {
-        $form = new \Nsmeele\WpStayPlanner\Form\SearchForm();
+        $form = new \Nsmeele\WpStayPlanner\Form\SearchForm([
+            'action' => '/search-room',
+        ]);
+
         $form->setValues([
             'start_date' => date('Y-m-d', strtotime('next saturday')),
             'end_date'   => date('Y-m-d', strtotime('next sunday')),

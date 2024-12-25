@@ -5,6 +5,9 @@
  * Author: Nathalie Smeele
  * Author URI: https://nathaliesmeele.nl/
  * Version: 1.0.0
+ * Requires PHP:      8.2
+ * Requires at least: 6.7
+ * Tested up to: 6.7
  */
 
 use Nsmeele\WpStayPlanner\Wordpress;
@@ -37,6 +40,11 @@ Wordpress\Taxonomy\AmenityTaxonomy::init();
  */
 Wordpress\Shortcode\CalendarShortcode::init();
 Wordpress\Shortcode\RoomsShortcode::init();
+
+/**
+ * Controllers
+ */
+Wordpress\Controller\SearchController::init();
 
 /**
  * Gutenberg blocks

@@ -13,6 +13,13 @@ abstract class AbstractForm extends AbstractContainer
      */
     private static array $fieldCache = [];
 
+    public function __construct(array $args = array ())
+    {
+        $args = ['widget_attr' => $args];
+        parent::__construct(null, $args);
+        $this->setSubmitLabel(__('Submit'));
+    }
+
     protected function setSubmitLabel(string $label): ContainerInterface
     {
         $this->submitLabel = $label;
@@ -39,7 +46,11 @@ abstract class AbstractForm extends AbstractContainer
         $html = parent::getWidgetHtml();
 
         if ($this->renderSubmitButton) {
-            $html .= $this->createElement('submit', 'submit', ['label' => $this->submitLabel])->__toString();
+            $html .= $this->createElement(
+                'submit',
+                'submit',
+                ['label' => $this->submitLabel]
+            );
         }
 
         return $html;
@@ -50,7 +61,6 @@ abstract class AbstractForm extends AbstractContainer
         return [
             'class' => 'form',
             'method' => 'post',
-            'action' => add_query_arg('find', '1'),
         ];
     }
 
