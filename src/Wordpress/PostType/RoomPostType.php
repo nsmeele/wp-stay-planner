@@ -6,7 +6,7 @@ use Nsmeele\WpStayPlanner\Component\Form\ElementFactory;
 
 class RoomPostType extends AbstractPostType
 {
-    protected function getPostTypeProperties() : array
+    protected function getPostTypeProperties(): array
     {
         return array_merge(
             parent::getPostTypeProperties(),
@@ -26,24 +26,24 @@ class RoomPostType extends AbstractPostType
         );
     }
 
-    public function getTag() : string
+    public function getTag(): string
     {
         return 'room';
     }
 
-    protected function getFields() : array
+    protected function getFields(): array
     {
         return [
-            ElementFactory::create('text', 'price', [
-                'label'    => __('Prijs per nacht', 'textdomain'),
+            ElementFactory::create(name: 'description', args: [
+                'label'    => __('Beschrijving', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'capacity', [
-                'label'    => __('Capaciteit', 'textdomain'),
+            ElementFactory::create(name: 'price', args: [
+                'label'    => __('Prijs per nacht', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'description', [
-                'label'    => __('Beschrijving', 'textdomain'),
+            ElementFactory::create(name: 'capacity', args: [
+                'label'    => __('Capaciteit', 'wp-stay-planner'),
                 'required' => true,
             ]),
         ];
