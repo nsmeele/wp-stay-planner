@@ -1,23 +1,25 @@
 {
-    "name": "nsmeele/wp-stay-planner",
-    "homepage": "https://github.com/nsmeele/wp-stay-planner",
-    "description": "Manage your cottage reservations",
-    "type": "project",
-    "autoload": {
-        "psr-4": {
-            "Nsmeele\\WpStayPlanner\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Nathalie Smeele",
-            "email": "info@nathaliesmeele.nl"
-        }
-    ],
-    "require": {
-        "php": ">=8.2"
-    },
-    "require-dev": {
-        "vimeo/psalm": "^4.30"
+  "name": "nsmeele/wp-stay-planner",
+  "homepage": "https://github.com/nsmeele/wp-stay-planner",
+  "description": "Manage your cottage reservations",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Nsmeele\\WpStayPlanner\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Nathalie Smeele",
+      "email": "info@nathaliesmeele.nl"
+    }
+  ],
+  "require": {
+    "php": ">=8.4",
+    "ext-dom": "*",
+    "symfony/dependency-injection": "^7.3"
+  },
+  "require-dev": {
+    "vimeo/psalm": "^4.30"
+  }
 }
