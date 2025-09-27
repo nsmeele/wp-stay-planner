@@ -3,22 +3,20 @@
 namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
 use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
+use Nsmeele\WpStayPlanner\Component\HTMLElement;
 
 class SelectField extends AbstractElement
 {
-    public function __construct(string $name, array $args = array ())
+    public function __construct(?string $name = null, array $args = [])
     {
-        $defaultReferenceArgs = [
-            'cardinality' => 1,
-            'post_type'   => 'post',
-            'orderby'     => 'title',
-            'order'       => 'ASC',
-        ];
+        $args[ 'referenceArgs' ]                  ??= [];
+        $args[ 'referenceArgs' ][ 'cardinality' ] ??= 1;
+        $args[ 'referenceArgs' ][ 'post_type' ]   ??= 'post';
+        $args[ 'referenceArgs' ][ 'orderby' ]     ??= 'title';
+        $args[ 'referenceArgs' ][ 'order' ]       ??= 'ASC';
 
-        $args[ 'referenceArgs' ] = array_merge($defaultReferenceArgs, $args[ 'referenceArgs' ] ?? []);
-
-        if (isset($args['single']) && $args['single'] === false) {
-            $args['multiple'] = 'multiple';
+        if (isset($args[ 'single' ]) && $args[ 'single' ] === false) {
+            $args[ 'multiple' ] = 'multiple';
         }
 
         parent::__construct($name, $args);
@@ -39,9 +37,9 @@ class SelectField extends AbstractElement
             }
         }
 
-        return sprintf(
-            "<select %s>%s</select>",
-            $this->renderAttributes($this->getWidgetAttributes()),
+        return (string) new HTMLElement(
+            'select',
+            $this->getWidgetAttributes(),
             $options,
         );
     }

@@ -2,11 +2,15 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form;
 
-abstract class AbstractContainer extends AbstractElement implements ContainerInterface
+abstract class AbstractContainer implements ContainerInterface
 {
+    protected array $fields = [];
+
     protected array $values = [];
 
-    public function setValues(array $values = array ()): ContainerInterface
+    protected array $attributes = [];
+
+    public function setValues(array $values = []): ContainerInterface
     {
         $this->values = $values;
         return $this;
@@ -17,23 +21,13 @@ abstract class AbstractContainer extends AbstractElement implements ContainerInt
         return $this->values;
     }
 
-    public function createElement(
-        string $type,
-        ?string $name = null,
-        array $args = array ()
-    ): ElementInterface {
-        $field = ElementFactory::create($type, $name, $args);
-        $field->setContainer($this);
-        return $field;
-    }
-
     public function getWidgetHtml(): string
     {
-        $html = '';
+        $html   = '';
         $values = $this->getValues();
         foreach ($this->getFields() as $field) {
             $field->setValue($values[ $field->getName() ] ?? null);
-            $html .= $field->__toString();
+            $html .= $field;
         }
         return $html;
     }
@@ -43,5 +37,47 @@ abstract class AbstractContainer extends AbstractElement implements ContainerInt
         return [
             'class' => 'element__container'
         ];
+    }
+
+    public function createElement(
+        string $type,
+        ?string $name = null,
+        array $args = []
+    ): ElementInterface {
+        $field = ElementFactory::create($type, $name, $args);
+        $field->setContainer($this);
+        $id = $field->getId() ?? $this->generateId($name);
+        $field->setId($id);
+
+        $this->fields[ $id ] = $field;
+
+        return $field;
+    }
+
+    private function generateId(string $name): string
+    {
+        $sanitizedName = sanitize_title($name);
+        $cache         = $this->fields;
+        $fieldName     = $sanitizedName . '_0';
+
+        if (isset($cache[ $fieldName ])) {
+            $i = 1;
+            while (isset($cache[ $sanitizedName . '_' . $i ])) {
+                $i++;
+            }
+            $fieldName = $sanitizedName . '_' . $i;
+        }
+
+        return $fieldName;
+    }
+
+    public function getFields(): array
+    {
+        return $this->fields;
+    }
+
+    public function getField(string $name): ?ElementInterface
+    {
+        return $this->fields[ $name ] ?? null;
     }
 }

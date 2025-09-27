@@ -12,4 +12,12 @@ interface ContainerInterface
      * @return ElementInterface[]
      */
     public function getFields(): array;
+
+    public function createElement(
+        string $type,
+        ?string $name = null,
+        array $args = array ()
+    ): ElementInterface;
+
+    public function getField(string $name): ?ElementInterface;
 }

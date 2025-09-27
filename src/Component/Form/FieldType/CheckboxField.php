@@ -6,7 +6,7 @@ class CheckboxField extends InputField
 {
     public function __construct(
         ?string $name = null,
-        array $args = array (),
+        array $args = [],
     ) {
         parent::__construct($name, $args);
         $this->setWidgetAttribute('type', 'checkbox');

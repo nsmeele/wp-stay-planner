@@ -3,14 +3,15 @@
 namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
 use Nsmeele\WpStayPlanner\Component\Form\AbstractElement;
+use Nsmeele\WpStayPlanner\Component\HTMLElement;
 
 abstract class InputField extends AbstractElement
 {
     protected function getWidgetHtml(): string
     {
-        return sprintf(
-            '<input %s>',
-            $this->renderAttributes($this->getWidgetAttributes())
+        return new HTMLElement(
+            'input',
+            $this->getWidgetAttributes()
         );
     }
 

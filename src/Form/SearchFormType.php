@@ -2,14 +2,14 @@
 
 namespace Nsmeele\WpStayPlanner\Form;
 
-use Nsmeele\WpStayPlanner\Component\Form\AbstractForm;
+use Nsmeele\WpStayPlanner\Component\Form\FormType;
 
-class SearchForm extends AbstractForm
+class SearchFormType extends FormType
 {
-    public function __construct(array $args = array ())
+    public function __construct(?string $name = null, array $args = array ())
     {
-        parent::__construct($args);
-        $this->setSubmitLabel(__('Search'));
+        parent::__construct($name, $args);
+        $this->setSubmitLabel(__('Search', 'wp-stay-planner'));
     }
 
     public function getFields(): array

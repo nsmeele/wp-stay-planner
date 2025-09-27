@@ -4,32 +4,16 @@ namespace Nsmeele\WpStayPlanner\Component\Form;
 
 class ElementFactory
 {
-    const FIELD_TYPES = [
-        'checkbox'  => FieldType\CheckboxField::class,
-        'radio'     => FieldType\RadioField::class,
-        'date'      => FieldType\DateField::class,
-        'email'     => FieldType\EmailField::class,
-        'reference' => FieldType\ReferenceField::class,
-        'repeater'  => FieldType\RepeaterField::class,
-        'select'    => FieldType\SelectField::class,
-        'text'      => FieldType\TextField::class,
-        'number'    => FieldType\NumberField::class,
-        'submit'    => FieldType\SubmitField::class,
-        'button'    => FieldType\ButtonField::class,
-        'container' => FieldType\ContainerField::class,
-    ];
-
     public static function create(
-        string $type,
+        ?string $type = null,
         ?string $name = null,
-        array $args = array ()
+        array $args = []
     ): ElementInterface {
-        if (self::validateType($type) === false) {
-            throw new \InvalidArgumentException('Invalid field type: ' . $type);
-        }
+        $type           = ElementType::from($type ?? 'text');
+        $class          = $type->getFieldClass();
+        $args[ 'type' ] = $type;
 
-        $fieldClass = self::FIELD_TYPES[ $type ];
-        return new $fieldClass($name, $args);
+        return new $class(name: $name, args: $args);
     }
 
     /**
@@ -39,14 +23,19 @@ class ElementFactory
     public static function parseString(string $input): array
     {
         if (empty($input)) {
-            throw new \InvalidArgumentException('Empty string given');
+            throw new \InvalidArgumentException('Could not parse string: string is empty');
         }
 
-        [$fieldType, $fieldName, $fieldLabel] = array_pad(explode('|', $input), 3, null);
+        [$fieldType, $fieldName, $fieldLabel] = array_pad(
+            explode('|', $input),
+            3,
+            null
+        );
+
         return [
             'type'  => $fieldType,
-            'name'  => $fieldName,
-            'label' => $fieldLabel,
+            'name'  => $fieldName ?? null,
+            'label' => $fieldLabel ?? null,
         ];
     }
 
@@ -62,19 +51,5 @@ class ElementFactory
             $fieldData[ 'name' ],
             ['label' => $fieldData[ 'label' ]]
         );
-    }
-
-    public static function getFieldType(string $class): string
-    {
-        if (in_array($class, self::FIELD_TYPES)) {
-            $fieldTypes = array_flip(self::FIELD_TYPES);
-            return $fieldTypes[ $class ];
-        }
-        throw new \InvalidArgumentException(sprintf("Invalid field class: [%s]", $class));
-    }
-
-    private static function validateType(string $type): bool
-    {
-        return array_key_exists($type, self::FIELD_TYPES);
     }
 }
