@@ -28,7 +28,7 @@ De plugin bevat een aantal Gutenberg templates die je kunt gebruiken om verblijv
 |----------------|---------------|----------------------------------|------------------------------------------|
 | Zoekresultaten | /search-room  | `wp-stay-planner/search-results` | `\Wordpress\Controller\SearchController` |
 
-De uri's worden geregisteerd middels de add_rewrite_rule functie.
+De uri's worden geregisteerd middels Wordpress' `add_rewrite_rule()` functie.
 
 ## Post types
 
