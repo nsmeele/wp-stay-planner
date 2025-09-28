@@ -43,8 +43,8 @@ De plugin voegt de volgende post types toe aan WordPress:
 
 ## Installatievereisten
 
-- Wordpress: `^6.7`
-- PHP: `^8.2`
+- Wordpress: `^6.8`
+- PHP: `^8.4`
 
 De plugin zal niet werken op oudere versies van WordPress, en je krijgt een melding als je probeert deze te installeren of activeren op een niet-ondersteunde versie.
 
