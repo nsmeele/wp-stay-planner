@@ -8,8 +8,8 @@ class SettingsPage extends BasePage
     {
         add_submenu_page(
             'stay-planner',
-            __('Settings', 'stay-planner'),
-            __('Settings', 'stay-planner'),
+            __('Settings', 'wp-stay-planner'),
+            __('Settings', 'wp-stay-planner'),
             'manage_options',
             'stay-planner-settings',
             [$this, 'execute']

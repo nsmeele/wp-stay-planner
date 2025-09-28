@@ -17,11 +17,11 @@ class BookingPostType extends AbstractPostType
             parent::getPostTypeProperties(),
             [
                 'labels' => [
-                    'name' => __('Boekingen', 'textdomain'),
-                    'singular_name' => __('Boeking', 'textdomain'),
-                    'add_new' => 'Maak nieuwe boeking',
-                    'add_new_item' => 'Nieuwe boeking',
-                    'edit_item' => 'Wijzig boeking'
+                    'name'          => __('Boekingen', 'wp-stay-planner'),
+                    'singular_name' => __('Boeking', 'wp-stay-planner'),
+                    'add_new'       => 'Maak nieuwe boeking',
+                    'add_new_item'  => 'Nieuwe boeking',
+                    'edit_item'     => 'Wijzig boeking'
                 ],
             ]
         );
@@ -38,7 +38,7 @@ class BookingPostType extends AbstractPostType
                 'label'    => __('Vertrekdatum', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'name', [
+            ElementFactory::create(name: 'name', args: [
                 'label'    => __('Naam', 'wp-stay-planner'),
                 'required' => true,
             ]),
@@ -46,19 +46,19 @@ class BookingPostType extends AbstractPostType
                 'label'    => __('Email', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'phone', [
+            ElementFactory::create(name: 'phone', args: [
                 'label'    => __('Telefoon', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'address', [
+            ElementFactory::create(name: 'address', args: [
                 'label'    => __('Adres', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'city', [
+            ElementFactory::create(name: 'city', args: [
                 'label'    => __('Plaats', 'wp-stay-planner'),
                 'required' => true,
             ]),
-            ElementFactory::create('text', 'zip', [
+            ElementFactory::create(name: 'zip', args: [
                 'label'    => __('Postcode', 'wp-stay-planner'),
                 'required' => true,
             ]),

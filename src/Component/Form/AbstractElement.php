@@ -2,29 +2,43 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form;
 
+use Nsmeele\WpStayPlanner\Component\HTMLElement;
+
 abstract class AbstractElement implements ElementInterface
 {
     protected mixed $value = null;
 
     protected ?ContainerInterface $container = null;
 
+    protected ElementType $fieldType;
+
+    protected HTMLElement $containerHtmlElement;
+
     public function __construct(
         protected ?string $name = null,
-        protected array $args = array (),
+        protected array $args = [],
     ) {
-        $this->args = array_merge([
-            'label'    => null,
-            'required' => false,
-        ], $args);
+        $this->args[ 'label' ]    ??= '';
+        $this->args[ 'required' ] ??= false;
 
-        $this->args[ 'container_attr' ] = array_merge(
-            $this->getDefaultContainerAttr(),
-            $args[ 'container_attr' ] ?? array (),
+        if ($this->args[ 'type' ] instanceof ElementType === false) {
+            throw new \InvalidArgumentException('Field type must be an instance of ElementType');
+        }
+
+        $this->fieldType = $this->args[ 'type' ];
+
+        $this->containerHtmlElement = new HTMLElement(
+            'div',
+            array_merge(
+                $this->getDefaultContainerAttr(),
+                $args[ 'container_attr' ] ?? [],
+            ),
+            $this,
         );
 
         $this->args[ 'widget_attr' ] = array_merge(
             $this->getDefaultWidgetAttr(),
-            $args[ 'widget_attr' ] ?? array (),
+            $args[ 'widget_attr' ] ?? [],
         );
 
         if ($this->getWidgetAttribute('value')) {
@@ -37,13 +51,13 @@ abstract class AbstractElement implements ElementInterface
         }
     }
 
-    abstract protected function getWidgetHtml(): string;
+    abstract protected function getWidgetHtml(): string|HTMLElement;
 
     public function renderLabel(): string
     {
         return sprintf(
             '<div class="form__element--label"><label for="%s">%s</label></div>',
-            $this->getId(),
+            esc_attr($this->getId()),
             $this->getLabelContent(),
         );
     }
@@ -57,25 +71,32 @@ abstract class AbstractElement implements ElementInterface
 
         $tooltip = $this->renderTooltip();
         if ($tooltip) {
-            $label .= $tooltip;
+            $label .= esc_html($tooltip);
         }
         return $label;
     }
 
     protected function renderHelpText(): string
     {
-        return sprintf(
-            '<div class="form__element--help">%s</div>',
-            $this->args[ 'help' ] ?? '',
+        return new HTMLElement(
+            'div',
+            [
+                'class' => 'form__element--help-text',
+            ],
+            $this->args[ 'help_text' ] ?? '',
         );
     }
 
     protected function renderTooltip(): ?string
     {
         if (! empty($this->args[ 'tooltip' ])) {
-            return sprintf(
-                '<span class="form__element--tooltip" title="%s">?</span>',
-                $this->args[ 'tooltip' ],
+            return new HTMLElement(
+                'span',
+                [
+                    'class' => 'form__element--tooltip',
+                    'title' => $this->args[ 'tooltip' ],
+                ],
+                '?',
             );
         }
         return null;
@@ -83,31 +104,16 @@ abstract class AbstractElement implements ElementInterface
 
     public function __toString(): string
     {
-        return sprintf(
-            '<div %s>%s<div class="form__element--widget">%s</div>%s</div>',
-            $this->renderAttributes($this->args[ 'container_attr' ]),
-            $this->renderLabel(),
-            $this->getWidgetHtml(),
-            $this->renderHelpText(),
+        return new HTMLElement(
+            'div',
+            $this->args[ 'container_attr' ] ?? [],
+            sprintf(
+                '%s<div class="form__element--widget">%s</div>%s',
+                $this->renderLabel(),
+                $this->getWidgetHtml(),
+                $this->renderHelpText(),
+            ),
         );
-    }
-
-    final protected function renderAttributes(array $attributes = array ()): string
-    {
-        $string = '';
-
-        $filterCallback = function ($value) {
-            return $value !== false && $value !== null && $value !== '';
-        };
-
-        foreach (array_filter($attributes, $filterCallback) as $key => $value) {
-            // Escape attributes to ensure security
-            $key    = esc_attr($key);
-            $value  = esc_attr($value);
-            $string .= " $key=\"$value\"";
-        }
-
-        return $string;
     }
 
     public function getValue(): mixed
@@ -121,7 +127,7 @@ abstract class AbstractElement implements ElementInterface
         return $this;
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return $this->args[ 'label' ];
     }
@@ -166,7 +172,7 @@ abstract class AbstractElement implements ElementInterface
 
     public function getWidgetAttributes(): array
     {
-        return $this->args[ 'widget_attr' ] ?? array ();
+        return $this->args[ 'widget_attr' ] ?? [];
     }
 
     public function getWidgetAttribute(string $attribute): ?string
@@ -194,7 +200,7 @@ abstract class AbstractElement implements ElementInterface
     protected function getDefaultContainerAttr(): array
     {
         return [
-            'class' => 'form__element form__element--' . ElementFactory::getFieldType(static::class),
+            'class' => 'form__element form__element--' . $this->fieldType->value,
         ];
     }
 

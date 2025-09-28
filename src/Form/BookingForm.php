@@ -2,8 +2,8 @@
 
 namespace Nsmeele\WpStayPlanner\Form;
 
-use Nsmeele\WpStayPlanner\Component\Form\AbstractForm;
+use Nsmeele\WpStayPlanner\Component\Form\FormType;
 
-class BookingForm extends AbstractForm
+class BookingForm extends FormType
 {
 }

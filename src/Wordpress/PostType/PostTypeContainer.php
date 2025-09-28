@@ -6,6 +6,9 @@ class PostTypeContainer
 {
     private static ?PostTypeContainer $instance = null;
 
+    /**
+     * @return PostTypeInterface[]
+     */
     private array $defaultPostTypeClasses = [
         BookingPostType::class,
         RoomPostType::class,
@@ -32,7 +35,7 @@ class PostTypeContainer
     }
 
     /**
-     * @return AbstractPostType[]
+     * @return PostTypeInterface[]
      */
     public function getPostTypes(): array
     {

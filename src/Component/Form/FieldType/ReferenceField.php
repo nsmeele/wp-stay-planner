@@ -7,14 +7,13 @@ use Nsmeele\WpStayPlanner\Component\Form\ElementFactory;
 
 class ReferenceField extends AbstractElement
 {
-    public function __construct(string $name, array $args = array ())
+    public function __construct(?string $name = null, array $args = [])
     {
-        $args[ 'referenceArgs' ] = array_merge([
-            'cardinality' => 1,
-            'post_type'   => 'post',
-            'orderby'     => 'title',
-            'order'       => 'ASC',
-        ], $args[ 'referenceArgs' ] ?? []);
+        $args[ 'referenceArgs' ]                  ??= [];
+        $args[ 'referenceArgs' ][ 'cardinality' ] ??= 1;
+        $args[ 'referenceArgs' ][ 'post_type' ]   ??= 'post';
+        $args[ 'referenceArgs' ][ 'orderby' ]     ??= 'title';
+        $args[ 'referenceArgs' ][ 'order' ]       ??= 'ASC';
 
         parent::__construct($name, $args);
     }
@@ -38,7 +37,7 @@ class ReferenceField extends AbstractElement
         }
 
         $html = ElementFactory::create('select', $this->name, [
-            'options'           => $options,
+            'options'     => $options,
             'widget_attr' => $selectWidgetAttributes
         ])->getWidgetHtml();
 

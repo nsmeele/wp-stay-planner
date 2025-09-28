@@ -13,7 +13,7 @@ class SearchBarBlock extends BaseBlock
         $attributes = array (),
         $content = '',
     ): string {
-        $form = new \Nsmeele\WpStayPlanner\Form\SearchForm([
+        $form = new \Nsmeele\WpStayPlanner\Form\SearchFormType(args: [
             'action' => '/search-room',
         ]);
 

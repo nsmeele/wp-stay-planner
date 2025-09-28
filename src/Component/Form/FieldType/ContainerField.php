@@ -2,34 +2,24 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form\FieldType;
 
-use Nsmeele\WpStayPlanner\Component\Form\AbstractForm;
+use Nsmeele\WpStayPlanner\Component\Form\AbstractContainer;
+use Nsmeele\WpStayPlanner\Component\HTMLElement;
 
-class ContainerField extends AbstractForm
+class ContainerField extends AbstractContainer
 {
-    protected array $fields;
-
     public function __toString(): string
     {
-        return sprintf(
-            '<div %s>%s</div>',
-            $this->renderAttributes($this->getWidgetAttributes()),
+        return (string)new HTMLElement(
+            'div',
+            [
+                'class' => 'form__container',
+            ],
             $this->getWidgetHtml(),
         );
     }
 
     public function getWidgetHtml(): string
     {
-        $html = '';
-
-        foreach ($this->fields as $field) {
-            $html .= $field->__toString();
-        }
-
-        return $html;
-    }
-
-    public function getFields(): array
-    {
-        return $this->fields;
+        return implode('', $this->getFields());
     }
 }

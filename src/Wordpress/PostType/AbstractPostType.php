@@ -14,7 +14,7 @@ abstract class AbstractPostType implements PostTypeInterface
     {
         add_action('init', [$this, 'register']);
         add_action('add_meta_boxes', [$this, 'registerMetabox']);
-        add_action('save_post', [$this, 'saveMetaboxData']);
+        add_action('save_post_' . $this->getTag(), [$this, 'saveMetaboxData']);
         add_filter('parent_file', [$this, 'adminMenuSelected']);
     }
 
@@ -97,7 +97,7 @@ abstract class AbstractPostType implements PostTypeInterface
     {
         return [
             'id'     => $this->getTag() . '_metabox',
-            'title'  => 'Default',
+            'title'  => __('WP Stay Planner'),
             'screen' => [$this->getTag()],
         ];
     }
@@ -115,20 +115,19 @@ abstract class AbstractPostType implements PostTypeInterface
         }
     }
 
-    public function saveMetaboxData(int $postId): int|null
+    public function saveMetaboxData(int $postId): void
     {
-        global $current_screen;
-
-        if ($current_screen->post_type !== $this->getTag()) {
-            return null;
-        }
-
-        if (! wp_verify_nonce($_POST[ $this->getTag() . '_metabox_nonce' ], basename(__FILE__))) {
-            throw new \Exception('Nonce verification failed');
+        if (
+            ! wp_verify_nonce(
+                $_POST[ $this->getTag() . '_metabox_nonce' ] ?? '',
+                basename(__FILE__)
+            )
+        ) {
+            return;
         }
 
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            throw new \Exception('Autosave');
+            return;
         }
 
         if (! current_user_can('edit_post', $postId)) {
@@ -143,19 +142,23 @@ abstract class AbstractPostType implements PostTypeInterface
 
             update_post_meta($postId, $field->getName(), $value);
         }
-
-        return null;
     }
 
     public function renderMetabox($post): void
     {
-        $metaboxInfo = $this->getMetaboxInfo();
-        wp_nonce_field(basename(__FILE__), $metaboxInfo[ 'id' ] . '_nonce');
+        wp_nonce_field(
+            basename(__FILE__),
+            $this->getTag() . '_metabox_nonce',
+        );
 
         $fields = static::getFields();
         foreach ($fields as $field) {
             if (! empty($field->getName())) {
-                $currentValue = get_post_meta($post->ID, $field->getName(), $field->getRegisterArgs()['single'] ?? true);
+                $currentValue = get_post_meta(
+                    $post->ID,
+                    $field->getName(),
+                    $field->getRegisterArgs()[ 'single' ] ?? true
+                );
                 $field->setValue($currentValue);
             }
 

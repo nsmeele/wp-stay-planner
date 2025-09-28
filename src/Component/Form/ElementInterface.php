@@ -2,13 +2,18 @@
 
 namespace Nsmeele\WpStayPlanner\Component\Form;
 
-interface ElementInterface
+interface ElementInterface extends \Stringable
 {
-    public function setContainer(?ContainerInterface $container = null): ElementInterface;
+    public function __construct(
+        ?string $name = null,
+        array $args = [],
+    );
+
+    public function setContainer(
+        ?ContainerInterface $container = null,
+    ): ElementInterface;
 
     public function getContainer(): ?ContainerInterface;
-
-    public function __toString(): string;
 
     public function getValue(): mixed;
 
@@ -28,7 +33,10 @@ interface ElementInterface
 
     public function getWidgetAttribute(string $attribute): ?string;
 
-    public function setWidgetAttribute(string $attribute, ?string $value = null): ElementInterface;
+    public function setWidgetAttribute(
+        string $attribute,
+        ?string $value = null
+    ): ElementInterface;
 
     public function getId(): ?string;
 
